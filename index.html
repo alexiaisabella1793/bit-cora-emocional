@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bitácora Emocional — El mapa de tu mundo interior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- ====== PUERTA DE EDAD ====== -->
+<div class="puerta" id="puerta" role="dialog" aria-modal="true" aria-labelledby="puerta-titulo">
+  <div class="puerta-caja">
+    <h2 id="puerta-titulo">Antes de entrar, dinos tu edad</h2>
+    <p>Cada sala se organiza por franjas de edad para que hables con gente que te entienda. Bitácora Emocional es para personas de 14 años en adelante.</p>
+    <div class="opciones-edad">
+      <button data-edad="menor">Tengo menos de 14 años</button>
+      <button data-edad="14-17">14 – 17 años</button>
+      <button data-edad="18-25">18 – 25 años</button>
+      <button data-edad="26-40">26 – 40 años</button>
+      <button data-edad="41+">41 años o más</button>
+    </div>
+    <p class="aviso-menor" id="aviso-menor">Aún no puedes usar la app. Si lo estás pasando mal, habla con alguien de confianza o llama al 116 111, la línea de ayuda a la infancia y la adolescencia (gratuita y anónima).</p>
+  </div>
+</div>
+
+<!-- ====== BARRA ====== -->
+<header class="barra">
+  <div class="envoltura barra-int">
+    <div class="marca">
+      <img class="marca-logo" src="img/logo-72.webp" alt="">
+      Bitácora Emocional
+    </div>
+    <nav class="menu" aria-label="Secciones">
+      <button data-ir="mapa" aria-current="true">El mapa</button>
+      <button data-ir="progresos">Tus progresos</button>
+      <button data-ir="cuidado">Cuidado y normas</button>
+      <button data-ir="proyecto">El proyecto</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ====== PORTADA ====== -->
+<div class="portada">
+  <div class="envoltura portada-rejilla">
+    <div>
+      <h1>El mapa de tu mundo interior</h1>
+      <p class="lema">Escribe lo que sientes sin dar tu nombre, encuentra a gente que ha pasado por lo mismo y responde a quien hoy no puede solo. Aquí nadie te pone nota.</p>
+      <div class="acciones">
+        <button class="boton" data-ir="mapa">Entrar en una sala</button>
+        <button class="boton hueco" data-ir="cuidado">Cómo cuidamos este sitio</button>
+      </div>
+    </div>
+    <div class="emblema">
+      <img class="emblema-logo" src="img/logo-512.webp" alt="Logo de Bitácora Emocional: una cabeza de perfil con un corazón dentro, sostenida por dos hojas y coronada por un arco">
+    </div>
+  </div>
+</div>
+
+<!-- ====== EL MAPA ====== -->
+<section class="bloque" id="mapa">
+  <div class="envoltura">
+    <div id="vista-mapa">
+      <h2 class="titulo-bloque">Elige por dónde andas hoy</h2>
+      <p class="entrada-bloque">Cada sala reúne un estado de ánimo y se divide por franjas de edad. Puedes leer sin escribir todo el tiempo que necesites.</p>
+      <div class="mapa" id="rejilla-mapa"></div>
+    </div>
+
+    <!-- salas generadas por JS -->
+    <div id="salas"></div>
+  </div>
+</section>
+
+<!-- ====== PROGRESOS ====== -->
+<section class="bloque" id="progresos">
+  <div class="envoltura">
+    <h2 class="titulo-bloque">Tus progresos</h2>
+    <p class="entrada-bloque">Un registro privado que solo ves tú. Sirve para mirar atrás y ver que las semanas malas no duran para siempre.</p>
+    <div class="panel-progreso">
+      <div class="tarjeta-progreso">
+        <span class="cifra" id="cifra-dias">0</span>
+        <span>días registrados</span>
+        <div class="registro-animo" id="registro-animo" role="group" aria-label="Registrar cómo estás hoy">
+          <button data-animo="1" title="Muy bajo" aria-label="Muy bajo">😔</button>
+          <button data-animo="2" title="Revuelto" aria-label="Revuelto">😣</button>
+          <button data-animo="3" title="Normal" aria-label="Normal">🙂</button>
+          <button data-animo="4" title="Bien" aria-label="Bien">😄</button>
+        </div>
+      </div>
+      <div class="tarjeta-progreso">
+        <span class="cifra" id="cifra-entradas">0</span>
+        <span>desahogos escritos</span>
+        <p style="margin:.9rem 0 0;color:var(--papel-suave);font-size:.93rem">Escribir ya es avanzar, aunque no te conteste nadie.</p>
+      </div>
+      <div class="tarjeta-progreso">
+        <span class="cifra" id="cifra-apoyos">0</span>
+        <span>veces que has apoyado a alguien</span>
+        <p style="margin:.9rem 0 0;color:var(--papel-suave);font-size:.93rem">Leer a otros y responder también cuenta como progreso.</p>
+      </div>
+      <div class="tarjeta-progreso" style="grid-column:1/-1">
+        <p style="margin:0 0 .3rem;font-family:'Bricolage Grotesque',sans-serif;font-size:.95rem">Últimas dos semanas</p>
+        <div class="rejilla-dias" id="rejilla-dias" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CUIDADO ====== -->
+<section class="bloque" id="cuidado">
+  <div class="envoltura">
+    <h2 class="titulo-bloque">Cuidado y normas</h2>
+    <p class="entrada-bloque">Esta app acompaña, no trata. No sustituye a un psicólogo ni a una urgencia médica.</p>
+    <div class="cuidado">
+      <h3>Si estás en un momento límite</h3>
+      <p style="margin:0;color:var(--papel-suave)">Hablar con una persona formada ayuda más rápido que escribir en un foro. En España:</p>
+      <ul>
+        <li><b>024</b> — línea de atención a la conducta suicida, 24 h, gratuita.</li>
+        <li><b>112</b> — emergencias.</li>
+        <li><b>116 111</b> — ayuda a la infancia y la adolescencia.</li>
+        <li><b>717 003 717</b> — Teléfono de la Esperanza.</li>
+      </ul>
+    </div>
+    <ul class="normas">
+      <li><b>Anonimato real</b>No pedimos nombre, foto ni contactos. Cada entrada lleva un alias nuevo.</li>
+      <li><b>Cero juicios</b>Se puede acompañar, preguntar y contar lo propio. No se puede aconsejar con desprecio.</li>
+      <li><b>Moderación humana</b>Las salas de 14–17 las revisa un equipo con formación en salud mental.</li>
+      <li><b>Avisos automáticos</b>Si un texto sugiere riesgo, la app muestra ayuda profesional antes de publicarlo.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ====== PROYECTO ====== -->
+<section class="bloque" id="proyecto">
+  <div class="envoltura">
+    <h2 class="titulo-bloque">El proyecto</h2>
+    <p class="entrada-bloque">Bitácora Emocional nace para quien siente que la consulta no le llega o que no sabe hablar mirando a los ojos. Escribir a desconocidos quita el peso de ser reconocido, y leer a otros quita el de ser el único.</p>
+    <ul class="normas">
+      <li><b>Problema</b>Cuesta expresar lo que se siente delante de alguien conocido.</li>
+      <li><b>Público</b>Desde los 14 años, con salas separadas por franjas de edad.</li>
+      <li><b>Catálogo</b>Salas por estado de ánimo en gama cálida, cada una con su color, más el registro de progresos.</li>
+      <li><b>Identidad</b>Una cabeza con un corazón dentro: la mente. Dos hojas la sostienen, un arco la cubre.</li>
+      <li><b>Autoras</b>Alexia Rólan e Isabella Ramírez: idea, identidad visual y diseño de la app.</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="envoltura pie-int">
+    <p class="creditos">Un proyecto de <b>Alexia Rólan</b> e <b>Isabella Ramírez</b></p>
+    <p class="nota-pie">Bitácora Emocional — prototipo. Las entradas de ejemplo son ficticias y lo que escribas se guarda solo en tu navegador.</p>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
